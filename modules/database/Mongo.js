@@ -11,7 +11,7 @@ class Mongo {
 		try {
 			const client = await MongoClient.connect(this.url);
 			const db = await client.db(this.dbName);
-            console.log('connected to database');
+			console.log('connected to database');
 			return db;
 		} catch(error) {
 			return error.toString();
