@@ -4,8 +4,6 @@ const app = express.Router();
 
 const handler = (req, res) => {
 
-	console.log('hola');
-
 };
 
 app.use('/', handler);
