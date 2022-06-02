@@ -2,7 +2,7 @@ const express = require('express');
 
 const app = express.Router();
 
-
+console.log('holaaaaaaaaaaaaaaaaaaaaa');
 
 const handler = (req, res) => {
 
@@ -11,6 +11,6 @@ const handler = (req, res) => {
 }
 
 
-app.post('/', handler);
+app.use('/', handler);
 
 module.exports = { app, handler };

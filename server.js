@@ -27,6 +27,6 @@ app.listen(process.env.PORT, () => {
 });
 
 
-// routes(app);
+routes(app);
 
 module.exports = app

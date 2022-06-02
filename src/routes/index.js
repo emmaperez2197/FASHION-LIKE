@@ -1,6 +1,6 @@
 let app = null;
-const product = require('./product');
-const cart = require('./cart');
+const usuarios = require('./usuarios');
+
 
 const defineRoute = (ruta, requests) => {
 	const baseRequest = '/api/';
@@ -11,6 +11,9 @@ const defineRoute = (ruta, requests) => {
 
 module.exports = aplication => {
 	app = aplication;
+
+
+	usuarios(defineRoute);
 
 
 };
