@@ -2,14 +2,11 @@ const express = require('express');
 
 const app = express.Router();
 
-console.log('holaaaaaaaaaaaaaaaaaaaaa');
-
 const handler = (req, res) => {
 
-    console.log('hola');
+	console.log('hola');
 
-}
-
+};
 
 app.use('/', handler);
 
