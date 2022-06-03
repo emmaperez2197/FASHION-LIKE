@@ -30,6 +30,18 @@ class Model {
 		}
 	}
 
+	static async getOne(filters) {
+		if(!Object.keys(filters))
+			throw new Error('no se recibieron filtros');
+
+		const db = await mongo.connect();
+
+		try {
+			db.collection(this.collection).findOne(filters);
+		} catch(error) {
+			return error.message;
+		}
+	}
 }
 
 module.exports = Model;
