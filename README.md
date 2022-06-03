@@ -8,7 +8,7 @@ Descripción del proyecto:
 Es una nueva red social donde se van publicando diferentes estilos de indumentaria y
 los usuarios pueden votar si les gusta o no el diseño.
 Objetivo:
-Conocerl el comportamiento de elección de los usuarios para la creación de futuros
+Conocer el comportamiento de elección de los usuarios para la creación de futuros
 diseños de indumentaria de la compañía.
 La información es valiosa por lo que debe ser fácil de conseguir y segura en su
 persistencia en la plataforma.
