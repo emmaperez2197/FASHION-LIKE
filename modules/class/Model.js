@@ -1,4 +1,4 @@
-const mongodb = require('mongodb');
+// const mongodb = require('mongodb');
 const Mongo = require('../database/Mongo');
 
 const mongo = new Mongo();
@@ -24,7 +24,7 @@ class Model {
 		const db = await mongo.connect();
 
 		try {
-			db.collection(this.collection).insertOne(this);
+			return	db.collection(this.collection).insertOne(this);
 		} catch(error) {
 			return error.message;
 		}
