@@ -18,7 +18,6 @@ const handler = async (req, res) => {
 
 		const crearUsuario = await usuario.insert();
 
-		console.log(crearUsuario);
 		res.status(201).json({ message: crearUsuario });
 
 	} catch(error) {
