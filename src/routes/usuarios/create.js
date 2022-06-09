@@ -21,7 +21,7 @@ const handler = async (req, res) => {
 		const buscarEmail = await Usuario.getOne({ email });
 
 		if(buscarEmail)
-			return res.status(400).json('el emaiil ya existe ingrese otro');
+			return res.status(200).json({ message: `el email: ${email} ya esta registrado, por favor ingrese otro` });
 
 		const crearUsuario = await usuario.insert();
 
