@@ -31,7 +31,7 @@ describe('Create Usuario api test', () => {
 
 	context('When errors do not ocurrs', () => {
 
-		it('Should return 200 if a user was created correctly', async () => {
+		it('Should return 201 if a user was created correctly', async () => {
 			sandbox.stub(UsuarioModel, 'getOne').resolves(null);
 			sandbox.stub(UsuarioModel.prototype, 'insert').resolves(fakeId);
 
@@ -48,7 +48,7 @@ describe('Create Usuario api test', () => {
 
 		});
 
-		it.only('Should return 200 if there is a user with the sent email', async () => {
+		it('Should return 200 if there is a user with the sent email', async () => {
 
 			sandbox.stub(UsuarioModel, 'getOne').resolves(usuarioGetted);
 			sandbox.stub(UsuarioModel.prototype, 'insert');
@@ -59,7 +59,81 @@ describe('Create Usuario api test', () => {
 			await handler(req, res);
 
 			assert.deepStrictEqual(res.status, 200);
-			assert.deepStrictEqual(res.json, 'el emaiil ya existe ingrese otro');
+			assert.deepStrictEqual(res.json, { message: `el email: ${fakeBody.email} ya esta registrado, por favor ingrese otro` });
+
+			sandbox.assert.calledOnceWithExactly(UsuarioModel.getOne, { email: fakeBody.email });
+			sandbox.assert.notCalled(UsuarioModel.prototype.insert);
+
+		});
+	});
+
+	context('When an errors ocurrs', () => {
+
+		it('Should return 400 if the data is invalid', async () => {
+			sandbox.stub(UsuarioModel, 'getOne');
+			sandbox.stub(UsuarioModel.prototype, 'insert');
+
+			const req = mockRequest({ ...fakeBody, email: 'emmaperez2197' });
+			const res = mockResponse();
+
+			await handler(req, res);
+
+			assert.deepStrictEqual(res.status, 400);
+			assert.deepStrictEqual(res.json, { error: '"email" must be a valid email' });
+
+			sandbox.assert.notCalled(UsuarioModel.getOne);
+			sandbox.assert.notCalled(UsuarioModel.prototype.insert);
+		});
+
+		it('Should return 400 if the data is invalid', async () => {
+			sandbox.stub(UsuarioModel, 'getOne');
+			sandbox.stub(UsuarioModel.prototype, 'insert');
+
+			const req = mockRequest({ ...fakeBody, contraseña: 1 });
+			const res = mockResponse();
+
+			await handler(req, res);
+
+			assert.deepStrictEqual(res.status, 400);
+			assert.deepStrictEqual(res.json, { error: '"contraseña" must be a string' });
+
+			sandbox.assert.notCalled(UsuarioModel.getOne);
+			sandbox.assert.notCalled(UsuarioModel.prototype.insert);
+		});
+
+		it('Should return 400 if the data is invalid', async () => {
+			sandbox.stub(UsuarioModel, 'getOne');
+			sandbox.stub(UsuarioModel.prototype, 'insert');
+
+			const req = mockRequest({ ...fakeBody, isAdmin: 1 });
+			const res = mockResponse();
+
+			await handler(req, res);
+
+			assert.deepStrictEqual(res.status, 400);
+			assert.deepStrictEqual(res.json, { error: '"isAdmin" must be a boolean' });
+
+			sandbox.assert.notCalled(UsuarioModel.getOne);
+			sandbox.assert.notCalled(UsuarioModel.prototype.insert);
+		});
+	});
+
+	context('When database errors occur', () => {
+		it('Should return 500 if any error occurs when trying to get a user by email', async () => {
+
+			sandbox.stub(UsuarioModel, 'getOne').rejects(new Error('Error in getOne'));
+			sandbox.stub(UsuarioModel.prototype, 'insert');
+
+			const req = mockRequest(fakeBody);
+			const res = mockResponse();
+
+			await handler(req, res);
+
+			assert.deepStrictEqual(res.status, 500);
+			assert.deepStrictEqual(res.json, { message: 'Error: Error in getOne' });
+
+			sandbox.assert.calledOnceWithExactly(UsuarioModel.getOne, { email: fakeBody.email });
+			sandbox.assert.notCalled(UsuarioModel.prototype.insert);
 
 		});
 	});
