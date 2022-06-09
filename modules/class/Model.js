@@ -37,7 +37,8 @@ class Model {
 		const db = await mongo.connect();
 
 		try {
-			db.collection(this.collection).findOne(filters);
+
+			return db.collection(this.collection).findOne(filters);
 		} catch(error) {
 			return error.message;
 		}
