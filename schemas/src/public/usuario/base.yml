@@ -1,0 +1,7 @@
+componets:
+  shemas:
+    Usuario:
+      description: creacion del usuarios
+      type: object
+      properties:
+      
