@@ -8,8 +8,7 @@
     "src/structs/",
     "src/structures",
     "src/routes/index.js",
-    "src/routes/product/index.js",
-    "src/routes/cart/index.js"
+    "src/routes/usuarios/index.js"
   ],
   "extension": [
     ".js"

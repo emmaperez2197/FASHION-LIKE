@@ -1,4 +1,4 @@
-const bcrypt = require('bcrypt');
+const sinon = require('sinon');
 const assert = require('assert');
 
 const UsuarioModel = require('../../src/models/Usuario');
@@ -25,6 +25,18 @@ describe('Test Usuario Model', () => {
 	it('create Example Model', async () => {
 		const usuarioModel = new UsuarioModel(data);
 		compareData(usuarioModel, data);
+	});
+
+	it('should return "usuario" when the static collection function is executed', () => {
+
+		const { collection } = UsuarioModel;
+		assert.deepStrictEqual(collection, 'usuarios');
+	});
+
+	it('Should return "usuario" when execute the collection instantiated function', () => {
+
+		const collectionUsuario = new UsuarioModel(data);
+		assert.deepStrictEqual(collectionUsuario.collection, 'usuarios');
 	});
 
 });
