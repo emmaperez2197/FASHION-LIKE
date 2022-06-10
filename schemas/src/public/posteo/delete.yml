@@ -1,0 +1,17 @@
+paths:
+  /api/product/deleteProuct/{id}:
+    delete:
+      operationId: DeleteProduct
+      tags:
+        - Product
+      summary: Delete a product
+      security:
+        - ApiKey: []
+          ApiSecret: []
+      responses:
+        "200":
+          $ref: "#/components/responses/successDeleteProductResponse"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "500":
+          $ref: "#/components/responses/InternalError"

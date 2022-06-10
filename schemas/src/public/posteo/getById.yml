@@ -1,0 +1,17 @@
+paths:
+  /api/product/get/{id}:
+    get:
+      operationId: GetByIdProduct
+      tags:
+        - Product
+      summary: GetById product
+      security:
+        - ApiKey: []
+          ApiSecret: []
+      responses:
+        "200":
+          $ref: "#/components/responses/SuccessGetByIdProductResponse"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "500":
+          $ref: "#/components/responses/InternalError"
