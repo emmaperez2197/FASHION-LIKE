@@ -1,23 +1,23 @@
 paths:
-  /api/cart/create:
+  /api/usuarios/create:
     post:
-      operationId: createCart
+      operationId: crearUsuario
       tags:
-        - Cart
-      summary: Create a Cart
+        - Usuario
+      summary: crear un usuario
       security:
         - ApiKey: []
           ApiSecret: []
       requestBody:
-        description: Create a cart in database
+        description: Crear usuario en la base de datos
         required: true
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/CreateCart"
+              $ref: "#/components/schemas/CreateUsuario"
       responses:
         "200":
-          $ref: "#/components/responses/SuccessCreateCartResponse"
+          $ref: "#/components/responses/SuccessCreateUsuarioResponse"
         "400":
           $ref: "#/components/responses/BadRequest"
         "500":

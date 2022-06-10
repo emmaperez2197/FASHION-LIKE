@@ -12,13 +12,7 @@ tags:
   - name: Usuario
     description: For managing  usuarios
 
-  - name: 
-    description: For post management
-
  
-
-
-
 servers:
   - url: "--*TODAVIA NO HAY SERVER DE PROD*--"
     description: The Prod API server
@@ -203,122 +197,18 @@ components:
 
 
 
-    successCreateExampleResponse:
-      description: Area Created
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              exampleInserted:
-                $ref: "#/components/schemas/id"
 
-
-    successCreateProductResponse:
-      description: Product Created
+    SuccessCreateUsuarioResponse:
+      description: Usuario Creado
       content:
         application/json:
           schema:
             type: object
             properties:
               productInserted:
-                $ref: "#/components/schemas/id"
-
-
-    successUpdateProductResponse:
-      description: Product updated
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              productUpdated:
-                $ref: "#/components/schemas/id"
-
-
-    successDeleteProductResponse:
-      description: Product delete
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              productUpdated:
-                $ref: "#/components/schemas/id"
-
-    successGetProductResponse:
-      description: Product get
-      content:
-        application/json:
-          schema:
-            type: array
-            items:
-              $ref: "#/components/schemas/Product"
-
-    SuccessGetByIdProductResponse:
-      description: Product getById
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/Product"
-
-    SuccessGetByIdCartResponse:
-      description: Product getById
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/Cart"
-
-    SuccessCreateCartResponse:
-      description: Cart Created
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              cartInserted:
-                $ref: "#/components/schemas/id"
-
-    SuccessAddProductResponse:
-      description: Add Product
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              product:
                 type: string
-                description: El id del producto que se agrego al carrito
+                description: se creo el id del usuario
                 example: 6245bf875e118fcf4585d245
-              cart:
-                type: string
-                description: El id del carrito
-                example: 6245bf875e118fcf4585d775
-              quantity:
-                type: number
-                description: Cantidad del mismo productos que se le agrega a un carrito
-                example: 5
-
-
-    SuccessEditCartResponse:
-      description: Edit Product
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              product:
-                type: string
-                description: El id del producto que se agrego al carrito
-                example: 6245bf875e118fcf4585d245
-              cart:
-                type: string
-                description: El id del carrito
-                example: 6245bf875e118fcf4585d775
-              quantity:
-                type: number
-                description: Cantidad del mismo producto que se le agrega al carrito
-                example: 5
 
 
 
@@ -336,115 +226,4 @@ components:
 
 
 
-    BadRequest:
-      description: A client error has ocurred.
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                description: A message explaining the error
-                type: string
 
-    Unauthorized:
-      description: Authentication missing or invalid
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                description: A message explaining the error
-                type: string
-
-    Forbidden:
-      description: Not authorized request
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                description: A message explaining the error
-                type: string
-
-    InternalError:
-      description: A server error has ocurred.
-
-    NotFound:
-      description: An item is not Found.
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                description: A message explaining the error
-                type: string
-
-    BatchResponse:
-      description: Batch responses
-      headers:
-        x-janis-total-created: 
-          description: The total amount of items created
-          schema:
-            type: integer
-            minimum: 0
-        x-janis-total-updated: 
-          description: The total amount of items updated
-          schema:
-            type: integer
-            minimum: 0
-        x-janis-total-not-modified: 
-          description: The total amount of items not modified
-          schema:
-            type: integer
-            minimum: 0
-        x-janis-total-error: 
-          description: The total amount of items with error
-          schema:
-            type: integer
-            minimum: 0
-      content:
-        application/json:
-          schema:
-            description: item Batch response
-            type: object
-            properties:
-              itemsCreated:
-                description: |
-                  Items which were created succesfully.  
-                  - The *key* of the *object* is the `referenceId` of the created item.
-                  - The *value* of the *object* is the `id` of the created item.
-                type: object
-                example:
-                  item-ref-id-1: 5ec694b11b252473bad6f170
-                  item-ref-id-2: 5ec694b11b252473bad6f171
-              itemsUpdated:
-                description: |
-                  Items which were updated succesfully.  
-                  - The *key* of the *object* is the `referenceId` of the updated item.
-                  - The *value* of the *object* is the `id` of the updated item.
-                type: object
-                example:
-                  item-ref-id-3: 606606782e232624c18f1c18
-                  item-ref-id-4: 6066067ff04765697cdd4d9a
-              itemsNotModified:
-                description: |
-                  Items that did not need to be modified.  
-                  This occurs when the item in the service **is equal** to the received item.
-                  - The *key* of the *object* is the `referenceId` of the non modified item.
-                  - The *value* of the *object* is the `id` of the non modified item.
-                type: object
-                example:
-                  item-ref-id-5: 606606827c96a136ead9065e
-                  item-ref-id-6: 60660686f42efcf71529e69d
-              itemsError:
-                description: |
-                  Items with some error.  
-                  - The *key* of the *object* is the `referenceId` of the item.
-                  - The *value* of the *object* is the validation message error.
-                type: object
-                example:
-                  item-ref-id-7: Invalid Accounts

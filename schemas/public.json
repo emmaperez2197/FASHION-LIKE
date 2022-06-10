@@ -1,0 +1,691 @@
+{
+	"openapi": "3.0.0",
+	"info": {
+		"title": "Doc fashion-like",
+		"description": "Manage User, docs, words",
+		"version": "1.6.0",
+		"x-logo": {
+			"url": "https://p325k7wa.twic.pics/high/naruto/naruto-suns-revolution/00-page-setup/nsr_game-thumbnail.jpg?twic=v1/cover=760x844/step=10/quality=80",
+			"altText": null
+		}
+	},
+	"tags": [
+		{
+			"name": "Usuario",
+			"description": "For managing  usuarios"
+		}
+	],
+	"servers": [
+		{
+			"url": "--*TODAVIA NO HAY SERVER DE PROD*--",
+			"description": "The Prod API server",
+			"variables": {
+				"environment": {
+					"default": "prod"
+				}
+			}
+		},
+		{
+			"url": "localhost:7020",
+			"description": "The Local API server",
+			"variables": {
+				"environment": {
+					"default": "local"
+				}
+			}
+		}
+	],
+	"paths": {
+		"/api/product/create": {
+			"post": {
+				"operationId": "createProduct",
+				"tags": [
+					"Product"
+				],
+				"summary": "Create a product",
+				"security": [
+					{
+						"ApiKey": [],
+						"ApiSecret": []
+					}
+				],
+				"requestBody": {
+					"description": "Create a product in database",
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/CreateProduct"
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"$ref": "#/components/responses/successCreateCartResponse"
+					},
+					"400": {
+						"$ref": "#/components/responses/BadRequest"
+					},
+					"500": {
+						"$ref": "#/components/responses/InternalError"
+					}
+				}
+			}
+		},
+		"/api/product/deleteProuct/{id}": {
+			"delete": {
+				"operationId": "DeleteProduct",
+				"tags": [
+					"Product"
+				],
+				"summary": "Delete a product",
+				"security": [
+					{
+						"ApiKey": [],
+						"ApiSecret": []
+					}
+				],
+				"responses": {
+					"200": {
+						"$ref": "#/components/responses/successDeleteProductResponse"
+					},
+					"400": {
+						"$ref": "#/components/responses/BadRequest"
+					},
+					"500": {
+						"$ref": "#/components/responses/InternalError"
+					}
+				}
+			}
+		},
+		"/api/product/get": {
+			"get": {
+				"operationId": "getProduct",
+				"tags": [
+					"Product"
+				],
+				"summary": "Get products",
+				"security": [
+					{
+						"ApiKey": [],
+						"ApiSecret": []
+					}
+				],
+				"requestBody": {
+					"description": "Get products from the database",
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/FilstersAndOrderBy"
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"$ref": "#/components/responses/successGetProductResponse"
+					},
+					"400": {
+						"$ref": "#/components/responses/BadRequest"
+					},
+					"500": {
+						"$ref": "#/components/responses/InternalError"
+					}
+				}
+			}
+		},
+		"/api/product/get/{id}": {
+			"get": {
+				"operationId": "GetByIdProduct",
+				"tags": [
+					"Product"
+				],
+				"summary": "GetById product",
+				"security": [
+					{
+						"ApiKey": [],
+						"ApiSecret": []
+					}
+				],
+				"responses": {
+					"200": {
+						"$ref": "#/components/responses/SuccessGetByIdProductResponse"
+					},
+					"400": {
+						"$ref": "#/components/responses/BadRequest"
+					},
+					"500": {
+						"$ref": "#/components/responses/InternalError"
+					}
+				}
+			}
+		},
+		"/api/product/update": {
+			"put": {
+				"operationId": "updateProduct",
+				"tags": [
+					"Product"
+				],
+				"summary": "Update a product",
+				"security": [
+					{
+						"ApiKey": [],
+						"ApiSecret": []
+					}
+				],
+				"requestBody": {
+					"description": "Update a product in database",
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/UpdateProduct"
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"$ref": "#/components/responses/successUpdateProductResponse"
+					},
+					"400": {
+						"$ref": "#/components/responses/BadRequest"
+					},
+					"500": {
+						"$ref": "#/components/responses/InternalError"
+					}
+				}
+			}
+		},
+		"/api/usuarios/create": {
+			"post": {
+				"operationId": "crearUsuario",
+				"tags": [
+					"Usuario"
+				],
+				"summary": "crear un usuario",
+				"security": [
+					{
+						"ApiKey": [],
+						"ApiSecret": []
+					}
+				],
+				"requestBody": {
+					"description": "Crear usuario en la base de datos",
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/CreateUsuario"
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"$ref": "#/components/responses/SuccessCreateUsuarioResponse"
+					},
+					"400": {
+						"$ref": "#/components/responses/BadRequest"
+					},
+					"500": {
+						"$ref": "#/components/responses/InternalError"
+					}
+				}
+			}
+		}
+	},
+	"components": {
+		"schemas": {
+			"id": {
+				"description": "The unique identifier of the item",
+				"type": "string",
+				"readOnly": true,
+				"example": "d555345345345as67a342a"
+			},
+			"password": {
+				"description": "The password for the user",
+				"type": "string",
+				"example": "Uv13qwer67pLkj"
+			},
+			"status": {
+				"description": "The item status",
+				"type": "string",
+				"default": "active",
+				"enum": [
+					"active",
+					"inactive"
+				],
+				"example": "active"
+			},
+			"dateCreated": {
+				"description": "The date of creation",
+				"type": "string",
+				"format": "date-time",
+				"readOnly": true,
+				"example": "2019-07-12T19:59:51.801Z"
+			},
+			"dateModified": {
+				"description": "The date of the last modification",
+				"type": "string",
+				"format": "date-time",
+				"readOnly": true,
+				"example": "2019-07-20T19:59:51.801Z"
+			},
+			"dateCreatedDay": {
+				"description": "The day of creation",
+				"type": "string",
+				"format": "date-time",
+				"readOnly": true,
+				"example": "2019-07-12T19:59:51.801Z"
+			},
+			"dateModifiedDay": {
+				"description": "The day of last modification",
+				"type": "string",
+				"format": "date-time",
+				"readOnly": true,
+				"example": "2019-07-12T19:59:51.801Z"
+			},
+			"userCreated": {
+				"description": "The ID of the user who created the item. This refer to the `id` of the **User** Entity of **Janis ID Service**. See [User](/v2/service/id#tag/User).",
+				"type": "string",
+				"readOnly": true,
+				"example": "6a1fc1eeb5b68406e0487a10"
+			},
+			"userModified": {
+				"description": "The ID of the user who last modified the item. This refer to the `id` of the **User** Entity of **Janis ID Service**. See [User](/v2/service/id#tag/User).",
+				"type": "string",
+				"readOnly": true,
+				"example": "7e1fc1eeb5b68406e048796"
+			},
+			"accountsIds": {
+				"description": "The Related Account's IDs. This refer to the `id` of the **Account** Entity. See [Account](/v2/service/commerce#tag/Account).",
+				"type": "array",
+				"items": {
+					"type": "string"
+				},
+				"example": [
+					"1a1fc1eeb5b68406e0487a01",
+					"1a1fc1eeb5b68406e0487a00"
+				]
+			},
+			"accountsReferenceIds": {
+				"description": "The Related Account's Reference IDs. This refer to the `referenceId` of the **Account** Entity. See [Account](/v2/service/commerce#tag/Account).",
+				"type": "array",
+				"items": {
+					"type": "string"
+				},
+				"example": [
+					"account-acc-01",
+					"account-acc-02"
+				]
+			},
+			"Product": {
+				"description": "creation of a product",
+				"type": "object",
+				"properties": {
+					"id": {
+						"$ref": "#/components/schemas/id"
+					},
+					"name": {
+						"description": "nombre del producto",
+						"type": "string",
+						"example": "corona"
+					},
+					"description": {
+						"description": "descripcion del producto",
+						"type": "string",
+						"example": "cerveza suaves"
+					},
+					"imageUrl": {
+						"description": "imagen del producto",
+						"type": "string",
+						"example": "https://cdn.shopify.com/s/files/1/0366/4442/1770/products/corona_8e2cdd93-e630-493f-a1c0-44a82d488b9e_1200x1200.jpg?v=1593799972"
+					},
+					"brandName": {
+						"description": "nombre de la marca",
+						"type": "string",
+						"example": "corona"
+					},
+					"attributes": {
+						"description": "atributos del producto",
+						"type": "object",
+						"properties": {
+							"style": {
+								"description": "tipo de cerveza",
+								"type": "string",
+								"example": "apa"
+							},
+							"ibu": {
+								"description": "nivel de amargor ,un numero mayor signica mas amargor",
+								"type": "number",
+								"example": 2
+							},
+							"abv": {
+								"description": "concetracion alcoholica",
+								"type": "number",
+								"example": 1
+							}
+						}
+					},
+					"price": {
+						"description": "precio del produto",
+						"type": "number",
+						"example": 500
+					},
+					"inStock": {
+						"description": "si el producto tiene stock o no",
+						"type": "boolean",
+						"example": true
+					},
+					"isVisible": {
+						"description": "si el producto esta visible",
+						"type": "boolean",
+						"example": true
+					},
+					"launchDate": {
+						"description": "fecha en la que se creo el producto",
+						"type": "date",
+						"example": "2022/03/25"
+					},
+					"status": {
+						"$ref": "#/components/schemas/status"
+					}
+				}
+			},
+			"CreateProduct": {
+				"description": "creation of a product",
+				"type": "object",
+				"properties": {
+					"name": {
+						"$ref": "#/components/schemas/Product/properties/name"
+					},
+					"description": {
+						"$ref": "#/components/schemas/Product/properties/description"
+					},
+					"imageUrl": {
+						"$ref": "#/components/schemas/Product/properties/imageUrl"
+					},
+					"brandName": {
+						"$ref": "#/components/schemas/Product/properties/brandName"
+					},
+					"attributes": {
+						"description": "creation of a product",
+						"type": "object",
+						"properties": {
+							"style": {
+								"$ref": "#/components/schemas/Product/properties/attributes/properties/style"
+							},
+							"ibu": {
+								"$ref": "#/components/schemas/Product/properties/attributes/properties/ibu"
+							},
+							"abv": {
+								"$ref": "#/components/schemas/Product/properties/attributes/properties/abv"
+							}
+						},
+						"required": [
+							"style",
+							"ibu",
+							"abv"
+						]
+					},
+					"price": {
+						"$ref": "#/components/schemas/Product/properties/price"
+					},
+					"inStock": {
+						"$ref": "#/components/schemas/Product/properties/inStock"
+					},
+					"isVisible": {
+						"$ref": "#/components/schemas/Product/properties/isVisible"
+					},
+					"launchDate": {
+						"$ref": "#/components/schemas/Product/properties/launchDate"
+					}
+				},
+				"required": [
+					"name",
+					"imageUrl",
+					"brandName",
+					"style",
+					"ibu",
+					"abv",
+					"price",
+					"inStock"
+				]
+			},
+			"UpdateProduct": {
+				"description": "Update a product",
+				"type": "object",
+				"properties": {
+					"name": {
+						"$ref": "#/components/schemas/Product/properties/name"
+					},
+					"description": {
+						"$ref": "#/components/schemas/Product/properties/description"
+					},
+					"imageUrl": {
+						"$ref": "#/components/schemas/Product/properties/imageUrl"
+					},
+					"brandName": {
+						"$ref": "#/components/schemas/Product/properties/brandName"
+					},
+					"attributes": {
+						"description": "Update of a product",
+						"type": "object",
+						"properties": {
+							"style": {
+								"$ref": "#/components/schemas/Product/properties/attributes/properties/style"
+							},
+							"ibu": {
+								"$ref": "#/components/schemas/Product/properties/attributes/properties/ibu"
+							},
+							"abv": {
+								"$ref": "#/components/schemas/Product/properties/attributes/properties/abv"
+							}
+						}
+					},
+					"price": {
+						"$ref": "#/components/schemas/Product/properties/price"
+					},
+					"inStock": {
+						"$ref": "#/components/schemas/Product/properties/inStock"
+					},
+					"isVisible": {
+						"$ref": "#/components/schemas/Product/properties/isVisible"
+					},
+					"launchDate": {
+						"$ref": "#/components/schemas/Product/properties/launchDate"
+					}
+				}
+			},
+			"FilstersAndOrderBy": {
+				"description": "Objeto que sirve para aplicar filtros y ordenar según un criterio.",
+				"type": "object",
+				"properties": {
+					"brandName": {
+						"description": "El nombre de la marca que utilizamos de filtro",
+						"type": "string",
+						"example": "corona"
+					},
+					"inStock": {
+						"description": "Filtrar por los productos que tienen stock o no.",
+						"type": "boolean",
+						"example": true
+					},
+					"isVisvile": {
+						"description": "Filtrar por los productos visibles o que no estan visibles.",
+						"type": "boolean",
+						"example": true
+					},
+					"orderBy": {
+						"description": "Variable que sirve para ordenar segun cuatro criterios \n - Mas barato primero\n - Menos barato primero\n - Mas amargo primero\n - Menos amargo primero",
+						"type": "string",
+						"example": "moreBitter"
+					}
+				}
+			},
+			"Usuario": {
+				"description": "creacion del usuarios",
+				"type": "object",
+				"properties": {
+					"id": {
+						"$ref": "#/components/schemas/id"
+					},
+					"email": {
+						"description": "email del usuario",
+						"type": "string",
+						"example": "emmaperez@gmail.com"
+					},
+					"contrasenia": {
+						"description": "contrasenia del usuario",
+						"type": "string",
+						"example": "disney1"
+					},
+					"isAdmin": {
+						"description": "si el rol es administrador o usuario comun",
+						"type": "boolean",
+						"example": true
+					},
+					"status": {
+						"$ref": "#/components/schemas/status"
+					}
+				}
+			},
+			"CreateUsuario": {
+				"description": "creacion del usuario",
+				"type": "object",
+				"properties": {
+					"email": {
+						"$ref": "#/components/schemas/Usuario/properties/email"
+					},
+					"contrasenia": {
+						"$ref": "#/components/schemas/Usuario/properties/contrasenia"
+					},
+					"isAdmin": {
+						"$ref": "#/components/schemas/Usuario/properties/isAdmin"
+					}
+				},
+				"required": [
+					"email",
+					"constraseña"
+				]
+			}
+		},
+		"securitySchemes": {
+			"ApiKey": {
+				"type": "apiKey",
+				"in": "header",
+				"name": "admin",
+				"description": "The middleware admin"
+			}
+		},
+		"parameters": {
+			"id": {
+				"name": "id",
+				"in": "path",
+				"schema": {
+					"type": "string",
+					"example": "d555345345345as67a342a"
+				},
+				"required": true,
+				"description": "The unique identifier of the item"
+			},
+			"skuId": {
+				"name": "id",
+				"in": "path",
+				"schema": {
+					"type": "string",
+					"example": "d555345345345as67a368c"
+				},
+				"required": true,
+				"description": "The SKU ID. This refer to the `id` of the **Sku** Entity. See [Sku](/v2/service/catalog#tag/Sku).\n"
+			},
+			"ListSortDirection": {
+				"name": "sortDirection",
+				"in": "query",
+				"description": "The direction to sort by",
+				"required": false,
+				"schema": {
+					"type": "string",
+					"enum": [
+						"asc",
+						"desc"
+					]
+				}
+			},
+			"ListPageNumber": {
+				"name": "x-janis-page",
+				"in": "header",
+				"description": "The page to get",
+				"required": false,
+				"schema": {
+					"type": "integer",
+					"default": 1,
+					"minimum": 0,
+					"exclusiveMinimum": true
+				}
+			},
+			"ListPageSize": {
+				"name": "x-janis-page-size",
+				"in": "header",
+				"description": "The page size to get",
+				"required": false,
+				"schema": {
+					"type": "integer",
+					"default": 60,
+					"minimum": 0,
+					"exclusiveMinimum": true
+				}
+			},
+			"JanisEntity": {
+				"name": "janis-entity",
+				"in": "header",
+				"description": "The entity name",
+				"required": true,
+				"schema": {
+					"type": "string"
+				}
+			}
+		},
+		"headers": {
+			"x-janis-total": {
+				"description": "The total amount of records in the list",
+				"schema": {
+					"type": "integer",
+					"minimum": 0
+				}
+			}
+		},
+		"responses": {
+			"GenericSuccess": {
+				"description": "Operation succeeded",
+				"content": {
+					"application/json": {
+						"schema": {
+							"type": "object"
+						}
+					}
+				}
+			},
+			"SuccessCreateUsuarioResponse": {
+				"description": "Usuario Creado",
+				"content": {
+					"application/json": {
+						"schema": {
+							"type": "object",
+							"properties": {
+								"productInserted": {
+									"type": "string",
+									"description": "se creo el id del usuario",
+									"example": "6245bf875e118fcf4585d245"
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

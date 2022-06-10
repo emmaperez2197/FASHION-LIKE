@@ -1,7 +1,37 @@
-componets:
-  shemas:
+components:
+  schemas:
     Usuario:
       description: creacion del usuarios
       type: object
       properties:
+        id:
+          $ref: "#/components/schemas/id"
+        email:
+          description: email del usuario
+          type: string
+          example: emmaperez@gmail.com
+        contrasenia:
+          description: contrasenia del usuario
+          type: string
+          example: disney1
+        isAdmin:
+          description:  si el rol es administrador o usuario comun
+          type: boolean
+          example: true
+        status:
+          $ref: "#/components/schemas/status"
+
+    CreateUsuario:
+      description: creacion del usuario
+      type: object
+      properties:
+        email:
+          $ref: "#/components/schemas/Usuario/properties/email"
+        contrasenia:
+          $ref: "#/components/schemas/Usuario/properties/contrasenia"
+        isAdmin:
+          $ref: "#/components/schemas/Usuario/properties/isAdmin"
+      required:
+        - email
+        - constraseña
       

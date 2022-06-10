@@ -1,0 +1,15 @@
+{
+	"public": {
+		"errors": [
+			{
+				"keyword": "type",
+				"dataPath": ".tags[1].name",
+				"schemaPath": "#/properties/name/type",
+				"params": {
+					"type": "string"
+				},
+				"message": "should be string"
+			}
+		]
+	}
+}
