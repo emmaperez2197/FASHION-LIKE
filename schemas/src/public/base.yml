@@ -205,7 +205,7 @@ components:
           schema:
             type: object
             properties:
-              productInserted:
+              usuarioInserted:
                 type: string
                 description: se creo el id del usuario
                 example: 6245bf875e118fcf4585d245

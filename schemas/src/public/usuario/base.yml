@@ -33,5 +33,5 @@ components:
           $ref: "#/components/schemas/Usuario/properties/isAdmin"
       required:
         - email
-        - constraseña
+        - contrasenia
       
