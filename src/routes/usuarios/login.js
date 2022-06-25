@@ -4,7 +4,7 @@ const app = express.Router();
 const bcrypt = require('bcrypt');
 
 const Usuario = require('../../models/Usuario');
-const schemaBody = require('../../structures/usuario/create');
+const schemaBody = require('../../structures/usuario/login');
 
 const handler = async (req, res) => {
 
@@ -17,10 +17,12 @@ const handler = async (req, res) => {
 
 		const { email, contraseña } = req.body;
 		const traerUnUsuario = await Usuario.getOne({ email }, { contraseña: 1 });
+
 		const anhash = bcrypt.compareSync(contraseña, traerUnUsuario.contraseña);
 		if(!anhash)
-			return 	res.status(400).json({ message: `lo siento la contrasenia: ${contraseña} es incorrecta, intente nuevamente` });
-		res.status(200).json({ messaje: 'Bienvenido a  fashion Like' });
+			return 	res.status(400).json({ message: 'los datos ingresados son incorrectos, intente nuevamente' });
+
+		res.status(200).json({ messaje: `Bienvenido/a ${traerUnUsuario.nombre}  ${traerUnUsuario.apellido}` });
 
 	} catch(error) {
 		return res.status(500).json({ message: error.toString() });
